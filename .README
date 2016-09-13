@@ -1,0 +1,9 @@
+- INSTRUCTIONS
+
+This project does not require any special instruction to use. Just compile and run.
+
+- THIRD-PARTY LIBRARIES
+
+	~ Picasso, to load images 
+	~ Butterknife, to initialize the views in the layout and avoid the boilerplate code.
+	~ Retrofit, to connect to the web services
