@@ -1,5 +1,6 @@
 package co.herovitamin.themoviedb.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -36,11 +37,16 @@ public class MovieDetailFragment extends Fragment implements Callback<Movie> {
     @BindView(R.id.movie_detail_poster)
     ImageView mMoviePoster;
 
+    @BindView(R.id.movie_detail_overview)
+    TextView mMovieOverview;
+
     @BindView(R.id.movie_detail_release_date)
     TextView mMovieReleaseDate;
 
     @BindView(R.id.movie_detail_genres)
     TextView mMovieGenres;
+
+    ProgressDialog mLoadingDialog;
 
     public MovieDetailFragment() {
     }
@@ -67,6 +73,10 @@ public class MovieDetailFragment extends Fragment implements Callback<Movie> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, view);
+
+        mLoadingDialog = new ProgressDialog(getContext());
+        mLoadingDialog.setMessage(getResources().getString(R.string.placeholder_loading));
+
         return view;
     }
 
@@ -77,7 +87,6 @@ public class MovieDetailFragment extends Fragment implements Callback<Movie> {
         Call<Movie> response = mApiService.getMovie(String.valueOf(mMovieId));
         response.enqueue(this);
 
-        Toast.makeText(getActivity(), R.string.wait_message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,9 +101,10 @@ public class MovieDetailFragment extends Fragment implements Callback<Movie> {
                     .into(mMoviePoster);
 
             mMovieTitle.setText(movie.getTitle());
-            mMovieReleaseDate.setText("Release date: " + movie.getReleaseDate());
+            mMovieReleaseDate.setText(getResources().getString(R.string.placeholder_release_date) + movie.getReleaseDate());
+            mMovieOverview.setText(movie.getOverview());
 
-            String genres = "Genres: ";
+            String genres = getResources().getString(R.string.placeholder_genres);
 
             for (int i = 0; i < movie.getGenres().length; i++) {
                 genres += movie.getGenres()[i].getName();
@@ -105,10 +115,13 @@ public class MovieDetailFragment extends Fragment implements Callback<Movie> {
 
             mMovieGenres.setText(genres);
         }
+
+        mLoadingDialog.dismiss();
     }
 
     @Override
     public void onFailure(Call<Movie> call, Throwable t) {
         Toast.makeText(getActivity(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+        mLoadingDialog.dismiss();
     }
 }

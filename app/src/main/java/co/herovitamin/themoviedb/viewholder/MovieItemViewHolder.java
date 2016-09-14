@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 import co.herovitamin.themoviedb.MainActivity;
 import co.herovitamin.themoviedb.R;
 import co.herovitamin.themoviedb.fragment.MovieDetailFragment;
-import co.herovitamin.themoviedb.network.model.MovieInList;
+import co.herovitamin.themoviedb.network.model.MovieSummaryInList;
 
 public class MovieItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -25,7 +25,7 @@ public class MovieItemViewHolder extends RecyclerView.ViewHolder implements View
     @BindView(R.id.movie_release_date)
     TextView mMovieReleaseDate;
 
-    MovieInList movie;
+    MovieSummaryInList movie;
 
     public MovieItemViewHolder(View itemView) {
         super(itemView);
@@ -33,15 +33,15 @@ public class MovieItemViewHolder extends RecyclerView.ViewHolder implements View
         itemView.setOnClickListener(this);
     }
 
-    public void bind(MovieInList movieInList){
+    public void bind(MovieSummaryInList movieSummaryInList){
 
-        movie = movieInList;
+        movie = movieSummaryInList;
 
-        mMovieTitle.setText(movieInList.getOriginalTitle());
-        mMovieReleaseDate.setText("Release date: " + movieInList.getFormattedDate());
+        mMovieTitle.setText(movieSummaryInList.getOriginalTitle());
+        mMovieReleaseDate.setText(mMovieReleaseDate.getResources().getString(R.string.placeholder_release_date) + movieSummaryInList.getFormattedDate());
         Picasso
                 .with(mMovieImage.getContext())
-                .load("http://image.tmdb.org/t/p/w185/" + movieInList.getPosterPath())
+                .load("http://image.tmdb.org/t/p/w185/" + movieSummaryInList.getPosterPath())
                 .into(mMovieImage);
     }
 

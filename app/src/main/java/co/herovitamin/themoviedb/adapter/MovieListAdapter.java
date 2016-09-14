@@ -5,14 +5,14 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import co.herovitamin.themoviedb.R;
-import co.herovitamin.themoviedb.network.model.MovieInList;
+import co.herovitamin.themoviedb.network.model.MovieSummaryInList;
 import co.herovitamin.themoviedb.viewholder.MovieItemViewHolder;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieItemViewHolder>{
 
-    MovieInList[] items;
+    MovieSummaryInList[] items;
 
-    public MovieListAdapter(MovieInList[] items) {
+    public MovieListAdapter(MovieSummaryInList[] items) {
         this.items = items;
     }
 

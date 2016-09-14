@@ -2,17 +2,17 @@ package co.herovitamin.themoviedb.network.model;
 
 public class MovieListResponse {
 
-    private MovieInList[] results;
+    private MovieSummaryInList[] results;
 
-    public MovieListResponse(MovieInList[] results) {
+    public MovieListResponse(MovieSummaryInList[] results) {
         this.results = results;
     }
 
-    public MovieInList[] getResults() {
+    public MovieSummaryInList[] getResults() {
         return results;
     }
 
-    public void setResults(MovieInList[] results) {
+    public void setResults(MovieSummaryInList[] results) {
         this.results = results;
     }
 }

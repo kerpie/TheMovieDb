@@ -4,5 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="connection_error">Information not available, please try again later</string>
-    <string name="wait_message">Wait a moment please... pixels are getting dressed!</string>
+
+    <string name="placeholder_release_date">Release date: </string>
+    <string name="placeholder_genres">Genres: </string>
+    <string name="placeholder_loading">Wait a moment please... pixels are dressing</string>
 </resources>

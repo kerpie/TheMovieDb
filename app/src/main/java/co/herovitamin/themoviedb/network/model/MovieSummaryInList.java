@@ -3,7 +3,7 @@ package co.herovitamin.themoviedb.network.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MovieInList {
+public class MovieSummaryInList {
 
     /*
     {
@@ -32,7 +32,7 @@ public class MovieInList {
     private String posterPath;
     private Date releaseDate;
 
-    public MovieInList(int id, String originalTitle, String posterPath, Date releaseDate) {
+    public MovieSummaryInList(int id, String originalTitle, String posterPath, Date releaseDate) {
         this.id = id;
         this.originalTitle = originalTitle;
         this.posterPath = posterPath;

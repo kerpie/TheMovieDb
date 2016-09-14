@@ -1,11 +1,11 @@
 package co.herovitamin.themoviedb.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,6 @@ import co.herovitamin.themoviedb.util.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MovieListFragment extends Fragment implements Callback<MovieListResponse> {
 
@@ -29,6 +28,8 @@ public class MovieListFragment extends Fragment implements Callback<MovieListRes
     RecyclerView mMovieList;
 
     API mApiService;
+
+    ProgressDialog mLoadingDialog;
 
     public MovieListFragment() {
     }
@@ -46,6 +47,10 @@ public class MovieListFragment extends Fragment implements Callback<MovieListRes
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
+
+        mLoadingDialog = new ProgressDialog(getContext());
+        mLoadingDialog.setMessage(getResources().getString(R.string.placeholder_loading));
+
         ButterKnife.bind(this, view);
         return view;
     }
@@ -62,6 +67,10 @@ public class MovieListFragment extends Fragment implements Callback<MovieListRes
     public void onStart() {
         super.onStart();
 
+
+
+        mLoadingDialog.show();
+
         Call<MovieListResponse> response = mApiService.getUpcomingMovies();
         response.enqueue(this);
     }
@@ -74,10 +83,12 @@ public class MovieListFragment extends Fragment implements Callback<MovieListRes
             MovieListAdapter adapter = new MovieListAdapter(movieListResponse.getResults());
             mMovieList.setAdapter(adapter);
         }
+        mLoadingDialog.dismiss();
     }
 
     @Override
     public void onFailure(Call<MovieListResponse> call, Throwable t) {
         Toast.makeText(getActivity(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+        mLoadingDialog.dismiss();
     }
 }
