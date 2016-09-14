@@ -84,6 +84,7 @@ public class MovieDetailFragment extends Fragment implements Callback<Movie> {
     public void onStart() {
         super.onStart();
 
+        mLoadingDialog.show();
         Call<Movie> response = mApiService.getMovie(String.valueOf(mMovieId));
         response.enqueue(this);
 
